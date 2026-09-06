@@ -10,7 +10,7 @@
    *    API keys, or service-account credentials in this file. GitHub Pages is public client code.
    */
   const CONFIG = Object.freeze({
-    API_URL: 'https://script.google.com/macros/s/REPLACE_WITH_YOUR_DEPLOYMENT_ID/exec',
+    API_URL: 'https://script.google.com/macros/s/AKfycbxo2E2dWkw1UaFguCH3FLyk4S3vZL7-ev4BGigkNaXlXreJCqXHktKdFVmoIFJmUdt6/exec',
     API_CHANNEL: 'SMIS_API_V2',
     SESSION_KEY: 'smisPortalSessionV2',
     SESSION_IDLE_MS: 15 * 60 * 1000,
