@@ -1,0 +1,1855 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S-MIS Smart Admin Portal</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11">
+</script>
+
+    <style>        :root {
+            --ubu-yellow: #f4c542;
+            --ubu-gold: #e0ab10;
+            --ubu-gold-dark: #8a6500;
+            --ubu-deep-brown: #5f4700;
+            --ubu-cream: #fff8e8;
+            --ubu-light: #fffdf7;
+            --bg-light: #fff9ef;
+        }
+
+        html, body { height: 100%; margin: 0; }
+
+         
+        body.session-checking #login-section,
+        body.session-checking #portal-section { visibility: hidden; }
+
+        body {
+            font-family: "Helvetica Neue Thin", "Helvetica Neue", Helvetica, Arial, san-serif;
+            background-color: var(--bg-light);
+            color: #333;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        
+
+
+        #login-section {
+            display: flex;
+            min-height: 100vh;
+            background: #fff8ec;
+            overflow: hidden;
+        }
+
+        .login-info-panel {
+            position: relative;
+            width: 45%;
+            min-height: 100vh;
+            padding: 54px 52px 42px;
+            color: #4f3a00;
+            background: linear-gradient(160deg, #f7d86b 0%, #f4c542 55%, #e1aa12 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+        }
+
+        .login-info-panel::after {
+            content: '';
+            position: absolute;
+            width: 540px;
+            height: 540px;
+            border-radius: 50%;
+            right: -355px;
+            bottom: -260px;
+            background: rgba(255, 243, 205, 0.96);
+            box-shadow: 110px 120px 0 22px rgba(245, 183, 0, 0.92);
+            transform: rotate(-10deg);
+            opacity: 0.98;
+        }
+
+        .login-info-content,
+        .login-legal {
+            position: relative;
+            z-index: 2;
+        }
+
+        .login-info-title {
+            font-size: 2.05rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            margin: 0 0 18px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(95,71,0,.18);
+        }
+
+        .login-info-text {
+            margin-top: 28px;
+            font-size: 0.98rem;
+            line-height: 1.75;
+            font-weight: 500;
+        }
+
+        .login-info-item {
+            margin-bottom: 24px;
+        }
+
+        .login-info-item strong {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .login-legal {
+            border-top: 1px solid rgba(95,71,0,.18);
+            padding-top: 20px;
+            font-size: 1.02rem;
+            line-height: 1.65;
+            max-width: 92%;
+        }
+
+        .login-main-panel {
+            position: relative;
+            width: 55%;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 48px 42px;
+            background:
+                radial-gradient(circle at 84% 88%, rgba(244,197,66,.20) 0 16%, transparent 17%),
+                radial-gradient(circle at 12% 12%, rgba(255,225,130,.22) 0 14%, transparent 15%),
+                #fffdf7;
+        }
+
+        .login-main-panel::after {
+            content: '';
+            position: absolute;
+            width: 360px;
+            height: 160px;
+            right: -70px;
+            bottom: -35px;
+            background: linear-gradient(145deg, transparent 0 38%, rgba(138,101,0,.88) 39% 44%, transparent 45% 50%, rgba(138,101,0,.88) 51% 56%, transparent 57%);
+            opacity: .9;
+            transform: rotate(-8deg);
+            pointer-events: none;
+        }
+
+        .login-modern-box {
+            background: #fff;
+            width: 100%;
+            max-width: 650px;
+            border-radius: 15px;
+            padding: 34px 44px 30px;
+            box-shadow: 0 20px 44px rgba(120, 88, 0, .14);
+            position: relative;
+            z-index: 2;
+        }
+
+        .login-brand {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 18px;
+            margin-bottom: 26px;
+        }
+
+        .login-logo img {
+            height: 92px;
+            max-width: 120px;
+            object-fit: contain;
+            filter: drop-shadow(0 3px 5px rgba(0,0,0,.08));
+        }
+
+        .login-brand-text {
+            text-align: left;
+            line-height: 1.05;
+        }
+
+        .login-title {
+            font-size: 2.15rem;
+            color: #7b5a00;
+            font-weight: 500;
+            letter-spacing: .6px;
+            margin-bottom: 9px;
+        }
+
+        .login-title-line {
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #f4c542 0%, #e3ad13 100%);
+            border-radius: 999px;
+            margin-bottom: 10px;
+        }
+
+        .login-subtitle {
+            font-size: 1.05rem;
+            color: #7a6b43;
+            line-height: 1.4;
+        }
+
+        .auth-method-title {
+            font-size: .92rem;
+            font-weight: 600;
+            color: #6f5400;
+            margin-bottom: 10px;
+        }
+
+        .auth-method-switch {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            padding: 6px;
+            background: #fff3cf;
+            border-radius: 12px;
+            margin-bottom: 22px;
+        }
+
+        .auth-method-btn {
+            border: 1px solid transparent;
+            background: transparent;
+            color: #7a6b43;
+            padding: 12px 10px;
+            border-radius: 9px;
+            font-family: inherit;
+            font-size: .95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: .2s ease;
+        }
+
+        .auth-method-btn i { margin-right: 7px; }
+
+        .auth-method-btn.active {
+            background: #fff;
+            color: var(--ubu-gold-dark);
+            border-color: #f2d37a;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, .07);
+        }
+
+        .auth-pane { display: none; }
+        .auth-pane.active { display: block; animation: authFade .22s ease; }
+        @keyframes authFade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+        .input-group-modern {
+            position: relative;
+            margin-bottom: 16px;
+        }
+
+        .input-modern {
+            width: 100%;
+            padding: 13px 44px 13px 44px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            background: #fffcf2;
+            color: #0f172a;
+            font-size: .96rem;
+            transition: .2s ease;
+        }
+
+        .input-modern:focus {
+            outline: none;
+            border-color: #b8b8b8;
+            background: #fff;
+            box-shadow: none;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #7a6b43;
+        }
+
+        .password-toggle-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #7a6b43;
+            cursor: pointer;
+        }
+
+        .btn-modern,
+        .btn-thaid {
+            width: 100%;
+            border: none;
+            border-radius: 6px;
+            padding: 13px 16px;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: .2s ease;
+        }
+
+        .btn-modern {
+            background: linear-gradient(135deg, #f4c542 0%, #e0ab10 100%);
+            color: #4d3900;
+            box-shadow: 0 6px 14px rgba(191, 143, 0, .28);
+        }
+
+        .btn-modern:hover,
+        .btn-thaid:hover { transform: translateY(-1px); filter: brightness(.98); }
+
+        .thaid-card {
+            border: 1px solid #e2e8f0;
+            background: #fffcf2;
+            border-radius: 10px;
+            padding: 18px;
+            text-align: center;
+            margin-bottom: 14px;
+        }
+
+        .thaid-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            margin: 0 auto 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff2c7;
+            color: #805f00;
+            font-size: 1.8rem;
+        }
+
+        .thaid-name {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 4px;
+        }
+
+        .thaid-desc {
+            color: #7a6b43;
+            font-size: .9rem;
+            line-height: 1.55;
+            margin: 0;
+        }
+
+        .btn-thaid {
+            background: linear-gradient(135deg, #f7d86b, #e0ab10);
+            color: #4d3900;
+            box-shadow: 0 6px 14px rgba(191, 143, 0, .22);
+        }
+
+
+        .thaid-inline-logo {
+            width: 22px;
+            height: 22px;
+            object-fit: contain;
+            vertical-align: middle;
+            margin-right: 8px;
+            border-radius: 4px;
+            flex-shrink: 0;
+        }
+
+        .thaid-card-logo {
+            width: 42px;
+            height: 42px;
+            object-fit: contain;
+            display: block;
+        }
+
+        .thaid-icon-logo {
+            background: #fffdf7;
+            border: 1px solid #f2d37a;
+            box-shadow: 0 4px 10px rgba(15, 23, 42, .06);
+        }
+
+        .login-help-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 14px;
+            margin-top: 14px;
+            font-size: .86rem;
+        }
+
+        .login-help-row a {
+            color: #a16f00;
+            text-decoration: none;
+        }
+
+        .login-footer-text {
+            margin-top: 22px;
+            padding-top: 17px;
+            border-top: 1px solid #f3e4af;
+            color: #7a6b43;
+            text-align: center;
+            font-size: .82rem;
+            line-height: 1.55;
+        }
+
+        @media (max-width: 992px) {
+            #login-section { display: block; }
+            .login-info-panel,
+            .login-main-panel { width: 100%; min-height: auto; }
+            .login-info-panel { padding: 30px 26px; }
+            .login-info-panel::after { display: none; }
+            .login-legal { margin-top: 18px; }
+            .login-main-panel { min-height: 68vh; padding: 28px 18px 42px; }
+        }
+
+        @media (max-width: 576px) {
+            .login-info-panel { display: none; }
+            .login-main-panel { min-height: 100vh; padding: 18px 12px; }
+            .login-modern-box { padding: 28px 18px 24px; border-radius: 12px; }
+            .login-brand { gap: 12px; }
+            .login-logo img { height: 70px; }
+            .login-title { font-size: 1.55rem; }
+            .login-subtitle { font-size: .86rem; }
+            .auth-method-switch { grid-template-columns: 1fr; }
+            .login-help-row { flex-direction: column; align-items: center; }
+        }
+
+        
+
+
+        #portal-section { display: none; flex-direction: column; flex-grow: 1; }
+        .portal-header { position: relative; background: linear-gradient(135deg, #f7d86b 0%, #f4c542 55%, #e0ab10 100%); color: #4f3a00; padding: 8px 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); overflow: hidden; }
+        .header-content { position: relative; z-index: 1; display: flex; align-items: center; justify-content: space-between; min-height: 60px; width: 100%; max-width: none; padding-left: clamp(24px, 4vw, 80px); padding-right: clamp(24px, 4vw, 80px); }
+        .header-watermark { position: absolute; right: -20px; bottom: -40px; width: 250px; opacity: 0.12; transform: rotate(-15deg); pointer-events: none; z-index: 0; filter: grayscale(100%) brightness(135%); }
+        .header-decor { position: absolute; width: 300px; height: 300px; background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%); top: -150px; left: 10%; z-index: 0; }
+
+        .nav-bar { background: white; padding: 10px 20px; border-bottom: 1px solid #ddd; display: flex; align-items: center; margin-bottom: 25px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+        .back-btn { border: 1px solid #dee2e6; background: #fff; padding: 6px 18px; border-radius: 30px; font-size: 0.85rem; cursor: pointer; display: none; margin-right: 15px; transition: 0.2s; color: #555; font-weight: 500; }
+        .back-btn:hover { background: #f4c542; color: #4f3a00; border-color: #e0ab10; }
+
+        .slim-card { background: white; border-radius: 12px; padding: 15px 20px; display: flex; align-items: center; cursor: pointer; transition: all 0.25s; border: 1px solid #eef2f5; box-shadow: 0 2px 6px rgba(0,0,0,0.04); text-decoration: none; color: inherit; height: 100%; min-height: 85px; position: relative; overflow: hidden; }
+        .slim-card::before { content: ''; position: absolute; left: 0; top: 0; height: 100%; width: 4px; background: #ddd; transition: 0.2s; }
+        .slim-card:hover { transform: translateY(-4px); box-shadow: 0 8px 15px rgba(0,0,0,0.08); }
+        .slim-card:hover::before { width: 6px; }
+
+        .type-job::before { background: #1a237e; } .type-job .icon-box { background: #e8eaf6; color: #1a237e; }
+        .type-scholar::before { background: #2e7d32; } .type-scholar .icon-box { background: #e8f5e9; color: #2e7d32; }
+        .type-ext::before { background: #e65100; } .type-ext .icon-box { background: #fff3e0; color: #e65100; }
+        .type-int::before { background: #006064; } .type-int .icon-box { background: #e0f7fa; color: #006064; }
+        .type-apply::before { background: #8e44ad; } .type-apply .icon-box { background: #f5eef8; color: #8e44ad; }
+
+        .icon-box { width: 48px; height: 48px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; margin-right: 18px; flex-shrink: 0; }
+        .card-content { flex-grow: 1; line-height: 1.25; }
+        .card-title { font-weight: 600; font-size: 1rem; margin-bottom: 2px; color: #2c3e50; }
+        .card-desc { font-size: 0.8rem; color: #7f8c8d; }
+        .arrow-icon { color: #ddd; font-size: 0.9rem; transition: 0.2s; }
+        .slim-card:hover .arrow-icon { color: #a16f00; transform: translateX(3px); }
+
+        .page-section { display: none; }
+        .page-section.active { display: block; animation: fadeIn 0.3s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateX(10px); } to { opacity: 1; transform: translateX(0); } }
+
+        .contact-footer {
+            background-color: #ffffff;
+            border-top: 1px solid #eaeaea;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.02);
+            width: 100%;
+            margin-top: auto;
+            padding: 16px 0  ;
+        }
+        .contact-footer .footer-inner {
+            width: 100%;
+            max-width: none;
+            padding-left: clamp(28px, 4vw, 78px);
+            padding-right: clamp(28px, 4vw, 78px);
+        }
+        .contact-footer .row {
+            width: 100%;
+            margin: 0;
+            min-height: 94px;
+        }
+        .contact-footer .footer-col-first,
+        .contact-footer .footer-col-middle,
+        .contact-footer .footer-col-last {
+            display: flex;
+            align-items: center;
+            min-height: 94px;
+        }
+        .contact-footer .footer-col-first { justify-content: flex-start; }
+        .contact-footer .footer-col-middle { justify-content: center; }
+        .contact-footer .footer-col-last { justify-content: flex-end; }
+        .contact-footer .footer-col-first > div,
+        .contact-footer .footer-col-middle > div,
+        .contact-footer .footer-col-last > div {
+            margin-top: 0  ;
+            margin-bottom: 0  ;
+        }
+        .contact-footer .footer-col-first img {
+            height: 64px  ;
+            margin-top: 0  ;
+        }
+        .contact-footer .footer-col-middle .mb-3 {
+            margin-bottom: 10px  ;
+        }
+        .contact-footer p,
+        .contact-footer h6 {
+            margin-bottom: 0  ;
+        }
+        @media (max-width: 767.98px) {
+            .header-content { padding-left: 16px; padding-right: 16px; }
+            .contact-footer { padding: 18px 0  ; }
+            .contact-footer .footer-inner { padding-left: 20px; padding-right: 20px; }
+            .contact-footer .footer-col-first,
+            .contact-footer .footer-col-middle,
+            .contact-footer .footer-col-last {
+                justify-content: flex-start;
+                min-height: auto;
+                padding-top: 8px;
+                padding-bottom: 8px;
+            }
+            .contact-footer .row { min-height: 0; }
+        }
+        @media (min-width: 768px) { .border-md-end { border-right: 1px solid #eaeaea; } }
+        .contact-icon { font-size: 1.5rem; color: #333; width: 30px; text-align: center; }
+        .dev-icon-box { width: 42px; height: 42px; background-color: #f1f3f5; color: #333; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; border: 1px solid #e9ecef; }
+
+        .nav-bar .text-primary,
+        .contact-footer a,
+        .contact-footer .fw-bold[style*='color: #8a6500'] { color: #8a6500  ; }
+        .portal-header .badge.text-primary { color: #8a6500  ; }
+        .portal-header .header-content p { color: rgba(79,58,0,.86); }
+        .portal-header .header-content h5 { color: #4f3a00; }
+        .auth-method-btn:hover { background: rgba(244,197,66,.22); color: #7b5a00; }
+        .login-info-panel, .login-info-text, .login-info-item, .login-info-item strong, .login-info-title, .login-legal { color: #4f3a00; }
+        .input-modern::placeholder { color: #9a8450; }
+        .thaid-card { border-color: #f1dc9a; }
+
+
+        
+
+
+        #login-section,
+        .login-info-panel,
+        .login-info-title,
+        .login-info-text,
+        .login-info-item,
+        .login-info-item strong,
+        .login-legal,
+        .login-title,
+        .login-subtitle,
+        .auth-method-title,
+        .thaid-name,
+        .thaid-desc,
+        .login-footer-text,
+        .login-help-row a,
+        .input-icon,
+        .password-toggle-icon {
+            color: #000000  ;
+        }
+
+        .input-modern {
+            color: #000000;
+            background: #ffffff;
+        }
+
+        .input-modern::placeholder {
+            color: #666666  ;
+        }
+
+         
+        .auth-method-switch {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            padding: 5px;
+            box-shadow: none;
+        }
+
+        .auth-method-btn,
+        .auth-method-btn.active,
+        .auth-method-btn:hover {
+            background: #ffffff  ;
+            color: #000000  ;
+            border-color: #e5e7eb  ;
+            box-shadow: none  ;
+            filter: none;
+        }
+
+        .auth-method-btn.active {
+            font-weight: 600;
+            border-color: #cbd5e1  ;
+        }
+
+        .btn-modern,
+        .btn-thaid {
+            color: #000000  ;
+        }
+
+        .portal-header,
+        .portal-header .header-content h5,
+        .portal-header .header-content p,
+        .portal-header .badge.text-primary,
+        .nav-bar .text-primary,
+        .contact-footer a {
+            color: #000000  ;
+        }
+
+
+        
+
+
+
+        #portal-section {
+            background: #ffffff;
+        }
+
+        #portal-section .nav-bar {
+            margin-bottom: 8px;
+            padding-top: 8px;
+            padding-bottom: 8px;
+            box-shadow: none;
+            border-bottom: 1px solid #e4e8eb;
+        }
+
+        .portal-app-area {
+            padding-top: 0;
+        }
+
+         
+        #portal-section .page-section > .row {
+            display: grid  ;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 8px  ;
+            margin: 0  ;
+            align-items: stretch;
+        }
+
+        #portal-section .page-section > .row > [class*="col-"] {
+            width: auto  ;
+            max-width: none  ;
+            flex: none  ;
+            padding: 0  ;
+            margin: 0  ;
+        }
+
+         
+        #portal-section .slim-card {
+            min-height: 92px;
+            height: auto;
+            padding: 10px 12px;
+            border: 0;
+            border-radius: 2px;
+            background: #eef2f3;
+            box-shadow: none;
+            display: flex;
+            align-items: center;
+            overflow: visible;
+            transition: background-color .16s ease, box-shadow .16s ease, transform .16s ease;
+        }
+
+        #portal-section .slim-card::before {
+            display: none  ;
+        }
+
+        #portal-section .slim-card:hover {
+            background: #e6ebed;
+            box-shadow: 0 2px 7px rgba(15, 23, 42, .10);
+            transform: translateY(-1px);
+        }
+
+         
+        #portal-section .icon-box {
+            width: 60px;
+            height: 60px;
+            min-width: 60px;
+            flex: 0 0 60px;
+            margin-right: 10px;
+            border-radius: 5px;
+            border: 1px solid rgba(15, 23, 42, .06);
+            font-size: 1.8rem;
+            overflow: hidden;
+            box-shadow: 0 1px 2px rgba(15, 23, 42, .04);
+        }
+
+         
+        #portal-section .type-job .icon-box {
+            background: #0b568f;
+            color: #ffffff;
+        }
+        #portal-section .type-scholar .icon-box {
+            background: #f8edbd;
+            color: #856900;
+        }
+        #portal-section .type-apply .icon-box {
+            background: linear-gradient(135deg, #8c52ff 0%, #4f72d8 100%);
+            color: #ffffff;
+        }
+        #portal-section .type-ext .icon-box {
+            background: #fff0e5;
+            color: #d85b12;
+        }
+        #portal-section .type-int .icon-box {
+            background: #e5f5f5;
+            color: #006a70;
+        }
+
+        #portal-section .card-content {
+            min-width: 0;
+            flex: 1 1 auto;
+            line-height: 1.25;
+            padding-right: 2px;
+            overflow: visible;
+        }
+
+        #portal-section .card-title {
+            margin: 0 0 4px 0;
+            color: #263b49;
+            font-size: .93rem;
+            line-height: 1.28;
+            font-weight: 500;
+            white-space: normal;
+            overflow: visible;
+            text-overflow: clip;
+            word-break: normal;
+            overflow-wrap: anywhere;
+        }
+
+        #portal-section .card-desc {
+            margin: 0;
+            color: #5d6870;
+            font-size: .70rem;
+            line-height: 1.35;
+            display: block;
+            overflow: visible;
+            white-space: normal;
+            word-break: normal;
+            overflow-wrap: anywhere;
+        }
+
+         
+        #portal-section .arrow-icon {
+            display: none  ;
+        }
+
+         
+        @media (min-width: 1700px) {
+            #portal-section .page-section > .row {
+                grid-template-columns: repeat(auto-fill, minmax(285px, 1fr));
+            }
+        }
+
+        @media (max-width: 1199.98px) {
+            #portal-section .page-section > .row {
+                grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            }
+        }
+
+        @media (max-width: 575.98px) {
+            #portal-section .page-section > .row {
+                grid-template-columns: 1fr;
+                gap: 7px  ;
+            }
+
+            #portal-section .slim-card {
+                height: auto;
+                min-height: 86px;
+                padding: 9px;
+            }
+
+            #portal-section .icon-box {
+                width: 56px;
+                height: 56px;
+                min-width: 56px;
+                flex-basis: 56px;
+                margin-right: 10px;
+                font-size: 1.65rem;
+            }
+
+            #portal-section .card-title {
+                font-size: .90rem;
+            }
+
+            #portal-section .card-desc {
+                font-size: .66rem;
+            }
+        }
+
+
+        /* ===== จัดกลุ่มเมนู A / B : หัวข้อขนาดเล็ก เรียบ ไม่มีกรอบสี ===== */
+        .portal-menu-group {
+            margin: 0 0 14px 0;
+        }
+
+        .portal-menu-group + .portal-menu-group {
+            margin-top: 16px;
+        }
+
+        .menu-group-heading {
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+            width: 100%;
+            margin: 0 0 6px 0;
+            padding: 0 2px;
+            background: transparent;
+            border: 0;
+            box-shadow: none;
+        }
+
+        .menu-group-code {
+            display: inline;
+            width: auto;
+            height: auto;
+            flex: 0 0 auto;
+            border-radius: 0;
+            background: transparent;
+            color: #374151;
+            font-size: .80rem;
+            line-height: 1.3;
+            font-weight: 700;
+        }
+
+        .menu-group-title {
+            color: #4b5563;
+            font-size: .80rem;
+            line-height: 1.35;
+            font-weight: 500;
+        }
+
+        #portal-section .menu-group-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 8px;
+            margin: 0;
+            align-items: stretch;
+        }
+
+        #portal-section .menu-group-grid > [class*="col-"] {
+            width: auto;
+            max-width: none;
+            flex: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        @media (min-width: 1700px) {
+            #portal-section .menu-group-grid {
+                grid-template-columns: repeat(auto-fill, minmax(285px, 1fr));
+            }
+        }
+
+        @media (max-width: 1199.98px) {
+            #portal-section .menu-group-grid {
+                grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            }
+        }
+
+        @media (max-width: 575.98px) {
+            .menu-group-heading {
+                gap: 5px;
+                padding: 0 1px;
+                margin-bottom: 5px;
+            }
+
+            .menu-group-code {
+                width: auto;
+                height: auto;
+                flex-basis: auto;
+                font-size: .76rem;
+            }
+
+            .menu-group-title {
+                font-size: .76rem;
+            }
+
+            #portal-section .menu-group-grid {
+                grid-template-columns: 1fr;
+                gap: 7px;
+            }
+        }
+
+    
+</style>
+</head>
+<body class="session-checking">
+
+    
+    <div id="login-section">
+        <section class="login-info-panel" aria-label="ข้อมูลระบบ">
+            <div class="login-info-content">
+                <h1 class="login-info-title">ระบบพิสูจน์และยืนยันตัวตนดิจิทัล (Digital ID) </h1>
+                <div class="login-info-text">
+                    <div class="login-info-item">
+                        <strong>1. S-MIS PORTAL ระบบบูรณาการสารสนเทศแบบรวมศูนย์</strong>
+                        S-MIS PORTAL "รวมเมนูหรือแอปพลิเคชันไว้ที่เดียว" One-Stop Service รองรับการเข้าสู่ระบบครั้งเดียวเพื่อใช้งานระบบภายในที่ได้รับสิทธิ์ ลดขั้นตอนการยืนยันตัวตนและเพิ่มความปลอดภัยในการใช้งาน
+                    </div>
+                    <div class="login-info-item">
+                        <strong>2. เลือกวิธียืนยันตัวตน</strong>
+                        การให้บริการยืนยันตัวบุคคล (Authentication) ในรูปแบบ Single Sign-On ผู้ใช้งานสามารถเลือกเข้าสู่ระบบด้วยรหัสผู้ใช้งานและรหัสผ่าน หรือเลือก ThaID แอปพลิเคชันพิสูจน์และยืนยันตัวตนดิจิทัล (Digital ID) พัฒนาโดย กรมการปกครอง กระทรวงมหาดไทย 
+                    </div>
+                    <div class="login-info-item">
+                        <strong>3. พบปัญหาการใช้งาน / สอบถามเพิ่มเติม</strong>
+                        ฝ่ายพัฒนาระบบ โทร. 062-474-0508 หรือ 062-474-0507<br>
+                        งานเครือข่าย KTP Contact Center โทรศัพท์. 0508 , 0508 หรือ 8084
+                    </div>
+                </div>
+            </div>
+
+            <div class="login-legal">
+                “การเข้าใช้งานระบบด้วย Username และ Password ของท่านถือว่าเป็นการลงลายมือชื่อทางอิเล็กทรอนิกส์ ตามมาตรา 9 ของ พ.ร.บ. ธุรกรรมทางอิเล็กทรอนิกส์ พ.ศ. 2544 ”
+            </div>
+        </section>
+
+        <section class="login-main-panel" aria-label="เข้าสู่ระบบ">
+            <div class="login-modern-box">
+                <div class="login-brand">
+                    <div class="login-logo">
+                        <img src="https://lh3.googleusercontent.com/d/1WvN_Rl-zM1biWLeOAy2gNeUKioySA3fW" alt="ตรามหาวิทยาลัยอุบลราชธานี">
+                    </div>
+                    <div class="login-brand-text">
+                        <div class="login-title">S-MIS PORTAL</div>
+                        <div class="login-title-line"></div>
+                        <div class="login-subtitle">ระบบบูรณาการสารสนเทศแบบรวมศูนย์ งานสวัสดิการนักศึกษา<br>กองพัฒนานักศึกษา มหาวิทยาลัยอุบลราชธานี</div>
+                    </div>
+                </div>
+
+                <div class="auth-method-title">เลือกวิธียืนยันตัวตน</div>
+                <div class="auth-method-switch" role="tablist" aria-label="วิธียืนยันตัวตน">
+                    <button type="button" id="authPasswordBtn" class="auth-method-btn active" onclick="switchAuthMethod('password')" role="tab" aria-selected="true">
+                        <i class="fas fa-key"></i> ยืนยันตัวตนผ่านรหัสผ่าน
+                    </button>
+                    <button type="button" id="authThaIDBtn" class="auth-method-btn" onclick="switchAuthMethod('thaid')" role="tab" aria-selected="false">
+                        <img src="https://lh3.googleusercontent.com/d/1q3ACvuNOID3gHvz8Jnvf-dRog3rHI5JG" alt="ThaID Logo" class="thaid-inline-logo">ยืนยันตัวตนผ่าน ThaID
+                    </button>
+                </div>
+
+                <div id="authPasswordPane" class="auth-pane active" role="tabpanel">
+                    <form id="loginForm" onsubmit="event.preventDefault(); handleLogin();">
+                        <div class="input-group-modern">
+                            <i class="far fa-user input-icon"></i>
+                            <input type="text" id="username" class="input-modern" placeholder="รหัสผู้ใช้งาน / Username" required autocomplete="username">
+                        </div>
+
+                        <div class="input-group-modern">
+                            <i class="fas fa-lock input-icon"></i>
+                            <input type="password" id="password" class="input-modern" placeholder="รหัสผ่าน / Password" required autocomplete="current-password">
+                            <i class="far fa-eye password-toggle-icon" id="togglePassword" onclick="togglePasswordVisibility()" aria-label="แสดงหรือซ่อนรหัสผ่าน"></i>
+                        </div>
+
+                        <button type="submit" class="btn-modern" id="loginBtn">
+                            เข้าสู่ระบบ <i class="fas fa-sign-in-alt ms-2"></i>
+                        </button>
+                    </form>
+                </div>
+
+                <div id="authThaIDPane" class="auth-pane" role="tabpanel">
+                    <div class="thaid-card">
+                        <div class="thaid-icon thaid-icon-logo"><img src="https://lh3.googleusercontent.com/d/1q3ACvuNOID3gHvz8Jnvf-dRog3rHI5JG" alt="ThaID Logo" class="thaid-card-logo"></div>
+                        <div class="thaid-name">เข้าสู่ระบบด้วย ThaID</div>
+                        <p class="thaid-desc">ระบบยืนยันตัวตนผ่าน ThaID อยู่ระหว่างเตรียมความพร้อม ขณะนี้ระบบยังไม่เปิดให้ใช้งานในส่วนนี้ หากเปิดใช้งานเมื่อใดจะประกาศให้ทราบอีกครั้ง</p>
+                    </div>
+                    <button type="button" class="btn-thaid" id="thaidLoginBtn" onclick="handleThaIDLogin()">
+                        <img src="https://lh3.googleusercontent.com/d/1q3ACvuNOID3gHvz8Jnvf-dRog3rHI5JG" alt="ThaID Logo" class="thaid-inline-logo">ยืนยันตัวตนด้วย ThaID
+                    </button>
+                </div>
+
+                <div class="login-help-row">
+                    <a href="#" onclick="showForgotPasswordInfo(); return false;">ลืมรหัสผ่าน</a>
+                    <a href="#" onclick="showLoginGuide(); return false;">คำแนะนำการใช้งาน</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    
+    <div id="portal-section">
+        <header class="portal-header">
+            <div class="header-decor"></div>
+            <img src="https://lh3.googleusercontent.com/d/1WvN_Rl-zM1biWLeOAy2gNeUKioySA3fW" class="header-watermark" alt="Watermark">
+
+            <div class="header-content container-fluid">
+                <div class="d-flex align-items-center">
+                    <img src="https://lh3.googleusercontent.com/d/1WvN_Rl-zM1biWLeOAy2gNeUKioySA3fW" alt="Logo" height="70" class="me-3" style="filter: drop-shadow(0 2px 2px rgba(95,71,0,0.18));">
+                    <div style="line-height: 1.1;"> 
+                        <h5 class="mb-0 fw-bold" style="letter-spacing: 0.5px; font-size: 1.2rem;">ระบบบูรณาการสารสนเทศแบบรวมศูนย์ งานสวัสดิการนักศึกษา</h5>
+                        <p class="mb-0" style="font-size: 0.9rem; opacity: 0.9;">กองพัฒนานักศึกษา มหาวิทยาลัยอุบลราชธานี</p>
+                    </div>
+                </div>
+                
+                <div class="d-none d-md-block text-end">
+                    <div class="badge bg-white text-primary rounded-pill px-3 py-1 shadow-sm" style="font-size: 0.75rem; cursor: pointer; color:#8a6500 !important;" onclick="handleLogout()">
+                        <i class="fas fa-sign-out-alt"></i> <span id="displayUserName">ออกจากระบบ</span>
+                    </div>
+                    <div id="datetime" class="mt-1" style="font-size: 0.75rem; opacity: 0.9; color:#6f5400;"></div>
+                </div>
+            </div>
+        </header>
+
+        <div class="nav-bar sticky-top">
+            <div class="container-fluid d-flex align-items-center px-2 px-lg-4">
+                <button class="back-btn" id="btnBack" onclick="goBack()">
+                    <i class="fas fa-chevron-left me-1"></i> ย้อนกลับ
+                </button>
+                <span id="pageTitle" class="fw-bold text-dark" style="font-size: 1.05rem;">
+                    <i class="fas fa-th-large text-primary me-2"></i> เมนูหลัก (Main Menu)
+                </span>
+            </div>
+        </div>
+
+        <div class="container-fluid px-2 px-lg-3 pb-5 flex-grow-1 portal-app-area">
+            <div id="page-home" class="page-section active">
+                <section class="portal-menu-group" data-menu-group="A">
+                    <div class="menu-group-heading">
+                        <div class="menu-group-code">A</div>
+                        <div class="menu-group-title">เมนูงานเกี่ยวกับระบบทำงานระหว่างเรียน มหาวิทยาลัยอุบลราชธานี</div>
+                    </div>
+
+                    <div class="menu-group-grid">
+                        <div class="col-lg-6 menu-permission-item" data-menu-code="A1">
+                            <a href="https://slfubu.github.io/jobstudent/" target="_blank" rel="noopener" class="slim-card type-job" onclick="openJobStudentSso(event)">
+                                <div class="icon-box"><i class="fas fa-laptop-house"></i></div>
+                                <div class="card-content">
+                                    <div class="card-title">A1 ระบบทำงานระหว่างเรียน (บันทึกทำรายการอนุมัติในระบบ)</div>
+                                    <div class="card-desc">ระบบบริหารจัดการสำหรับบันทึกและจัดการข้อมูลจ้างงาน</div>
+                                </div>
+                                <i class="fas fa-external-link-alt arrow-icon"></i>
+                            </a>
+                        </div>
+
+                        <div class="col-lg-6 menu-permission-item" data-menu-code="A2">
+                            <a href="https://slfubu.github.io/e-notesync/"
+                               target="_blank"
+                               rel="noopener"
+                               class="slim-card type-job"
+                               onclick="openENoteSyncSso(event)">
+                                <div class="icon-box"><i class="fas fa-file-invoice-dollar"></i></div>
+                                <div class="card-content">
+                                    <div class="card-title">A2 ระบบบันทึกข้อความเบิกจ่าย (สร้างบันทึกข้อความอัตโนมัติ)</div>
+                                    <div class="card-desc">สร้างบันทึกข้อความและเอกสารเบิกจ่าย โดยรองรับ Single Sign-On จาก S-MIS PORTAL</div>
+                                </div>
+                                <i class="fas fa-external-link-alt arrow-icon"></i>
+                            </a>
+                        </div>
+
+                        <div class="col-lg-6 menu-permission-item" data-menu-code="A3">
+                            <a href="https://slfubu.github.io/E-Document"
+                               target="_blank"
+                               rel="noopener"
+                               class="slim-card type-job"
+                               onclick="return openPermittedExternal(event, 'A3', this.href)">
+                                <div class="icon-box"><i class="fas fa-envelope-open-text"></i></div>
+                                <div class="card-content">
+                                    <div class="card-title">A3 ระบบส่งอีเมลแบบรวมกลุ่ม รายชื่อทำงานระหว่างเรียน</div>
+                                    <div class="card-desc">ระบบส่งอีเมลแจ้งเตือนนักศึกษา / หน่วยงาน แจ้งเวียนโดยระบบ</div>
+                                </div>
+                                <i class="fas fa-external-link-alt arrow-icon"></i>
+                            </a>
+                        </div>
+
+                        <div class="col-lg-6 menu-permission-item" data-menu-code="A4">
+                            <a href="https://slfubu.github.io/ubu-studentjobs"
+                               target="_blank"
+                               rel="noopener"
+                               class="slim-card type-job"
+                               onclick="return openPermittedExternal(event, 'A4', this.href)">
+                                <div class="icon-box"><i class="fas fa-user-edit"></i></div>
+                                <div class="card-content">
+                                    <div class="card-title">A4 ระบบรับสมัครนักศึกษาทำงานระหว่างเรียน ปีงบ 2570</div>
+                                    <div class="card-desc">สำหรับนักศึกษากรอกข้อมูลการสมัครทำงานระหว่างเรียน</div>
+                                </div>
+                                <i class="fas fa-external-link-alt arrow-icon"></i>
+                            </a>
+                        </div>
+
+                        <div class="col-lg-6 menu-permission-item" data-menu-code="A5">
+                            <a href="https://slfubu.github.io/ubu-studentjobs/dashboard.html"
+                               target="_blank"
+                               rel="noopener"
+                               class="slim-card type-job"
+                               onclick="openStudentJobsAdminSso(event)">
+                                <div class="icon-box"><i class="fas fa-user-cog"></i></div>
+                                <div class="card-content">
+                                    <div class="card-title">A5 ระบบบริหารจัดการการรับสมัครนักศึกษาทำงานระหว่างเรียน</div>
+                                    <div class="card-desc">ระบบบริหารจัดการการรับสมัครนักศึกษาทำงานระหว่างเรียน ปีงบ 2570</div>
+                                </div>
+                                <i class="fas fa-external-link-alt arrow-icon"></i>
+                            </a>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="portal-menu-group" data-menu-group="B">
+                    <div class="menu-group-heading">
+                        <div class="menu-group-code">B</div>
+                        <div class="menu-group-title">เมนูเกี่ยวกับระบบทุนการศึกษาภายนอกมหาวิทยาลัย</div>
+                    </div>
+
+                    <div class="menu-group-grid">
+                        <div class="col-lg-6 menu-permission-item" data-menu-code="B1">
+                            <a href="https://admin.cyf.or.th/index.php"
+                               target="_blank"
+                               rel="noopener"
+                               class="slim-card type-ext"
+                               onclick="return openPermittedExternal(event, 'B1', this.href)">
+                                <div class="icon-box"><i class="fas fa-hand-holding-heart"></i></div>
+                                <div class="card-content">
+                                    <div class="card-title">B1 ระบบทุนการศึกษามูลนิธิทุนศึกษาสร้างฝัน</div>
+                                    <div class="card-desc">บริหารจัดการและบันทึกข้อมูลทุนมูลนิธิฯ</div>
+                                </div>
+                                <i class="fas fa-external-link-alt arrow-icon"></i>
+                            </a>
+                        </div>
+
+                        <div class="col-lg-6 menu-permission-item" data-menu-code="B2">
+                            <a href="https://southyiaoya.moe.go.th/login"
+                               target="_blank"
+                               rel="noopener"
+                               class="slim-card type-ext"
+                               onclick="return openPermittedExternal(event, 'B2', this.href)">
+                                <div class="icon-box"><i class="fas fa-database"></i></div>
+                                <div class="card-content">
+                                    <div class="card-title">B2 ระบบฐานข้อมูลทุนเยียวยา จังหวัดชายแดนภาคใต้</div>
+                                    <div class="card-desc">ตรวจสอบและเก็บประวัตินักศึกษาทุนเยียวยา</div>
+                                </div>
+                                <i class="fas fa-external-link-alt arrow-icon"></i>
+                            </a>
+                        </div>
+                    </div>
+                </section>
+
+                <div id="noAuthorizedMenus" class="alert alert-light border mt-3 mb-0" style="display:none;">
+                    <i class="fas fa-lock me-2"></i>
+                    บัญชีนี้ยังไม่ได้รับสิทธิ์เข้าใช้งานเมนูใด กรุณาติดต่อผู้ดูแลระบบเพื่อกำหนดสิทธิ์ โทรศัพท์ 045-353000 ต่อ 1210 (เบอร์ภายใน 1210)
+                </div>
+            </div>
+        </div>
+
+        <footer class="contact-footer py-4 mt-auto">
+            <div class="container-fluid footer-inner">
+                <div class="row align-items-center g-0">
+                    <div class="col-md-4 border-md-end mb-4 mb-md-0 px-md-3 footer-col-first">
+                        <div class="d-flex align-items-start">
+                            <img src="https://lh3.googleusercontent.com/d/1WvN_Rl-zM1biWLeOAy2gNeUKioySA3fW" alt="Logo" height="75" class="me-3 mt-1">
+                            <div>
+                                <h6 class="fw-bold mb-1 text-dark" style="font-size: 1rem;">งานสวัสดิการนักศึกษา กองพัฒนานักศึกษา</h6>
+                                <p class="text-muted mb-0" style="font-size: 0.85rem; line-height: 1.5;">
+                                    สำนักงานอธิการบดี 1 ชั้น 2 เลขที่ 85 ถนนสถลมาร์ค <br>ตำบลเมืองศรีไค
+                                    อำเภอวารินชำราบ อุบลราชธานี 34190<br>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 border-md-end mb-4 mb-md-0 px-md-3 footer-col-middle">
+                        <div>
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="far fa-envelope contact-icon me-3"></i>
+                            <div>
+                                <div class="text-dark fw-bold" style="font-size: 0.90rem;">อีเมล</div>
+                                <a href="mailto:ubustudent.d@ubu.ac.th" class="fw-bold text-decoration-none" style="color: #8a6500; font-size: 0.90rem;">
+                                    ubustudent.d@ubu.ac.th
+                                </a>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-phone-alt contact-icon me-3"></i>
+                            <div>
+                                <div class="text-dark fw-bold" style="font-size: 0.8rem;">โทรศัพท์</div>
+                                <div class="fw-bold" style="color: #8a6500; font-size: 0.90rem;">
+                                    045-353000 ต่อ 1210 
+                                    <span class="text-muted fw-normal" style="font-size: 0.90rem;">(จันทร์ - ศุกร์ 8:30 - 16:30)</span>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 px-md-3 mt-4 mt-md-0 footer-col-last">
+                        <div class="d-flex align-items-center">
+                            <div class="dev-icon-box me-3"><i class="far fa-address-card"></i></div>
+                            <div>
+                                <div class="text-muted fw-normal mb-1" style="font-size: 0.8rem; letter-spacing: 0.5px;">ผู้พัฒนาระบบ</div>
+                                <div class="fw-bold text-dark" style="font-size: 0.90rem; margin-bottom: 2px;">ฐาปนัทพัฏทฐากร ฉายยิ่งเชี่ยว</div>
+                                <div style="font-size: 0.90rem; color: #666; line-height: 1.6;">
+                                    <a href="mailto:thapanutputtathakorn@gmail.com" class="text-decoration-none" style="color: #004aad;">
+                                        <i class="far fa-envelope me-1"></i> thapanutputtathakorn@gmail.com
+                                    </a><br>
+                                    <span><i class="fas fa-phone-alt me-1"></i> 062-474-0508 <span class="text-muted fw-normal" style="font-size: 0.90rem;">(8:30 - 20:00)</span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    
+    <script src="./assets/js/config.js"></script>
+
+    <script>         
+        function togglePasswordVisibility() {
+            const passwordEl = document.getElementById('password');
+            const toggleIcon = document.getElementById('togglePassword');
+            if (passwordEl.type === 'password') {
+                passwordEl.type = 'text';
+                toggleIcon.classList.replace('fa-eye', 'fa-eye-slash');
+            } else {
+                passwordEl.type = 'password';
+                toggleIcon.classList.replace('fa-eye-slash', 'fa-eye');
+            }
+        }
+
+
+         
+        function switchAuthMethod(method) {
+            const isPassword = method === 'password';
+            document.getElementById('authPasswordPane').classList.toggle('active', isPassword);
+            document.getElementById('authThaIDPane').classList.toggle('active', !isPassword);
+            document.getElementById('authPasswordBtn').classList.toggle('active', isPassword);
+            document.getElementById('authThaIDBtn').classList.toggle('active', !isPassword);
+            document.getElementById('authPasswordBtn').setAttribute('aria-selected', isPassword ? 'true' : 'false');
+            document.getElementById('authThaIDBtn').setAttribute('aria-selected', isPassword ? 'false' : 'true');
+        }
+
+        function showForgotPasswordInfo() {
+            Swal.fire({
+                icon: 'info',
+                title: 'ลืมรหัสผ่าน',
+                html: 'กรุณาติดต่อผู้ดูแลระบบ งานสวัสดิการนักศึกษา<br>โทร. 045-353000 ต่อ 1210',
+                confirmButtonText: 'ตกลง'
+            });
+        }
+
+        function showLoginGuide() {
+            Swal.fire({
+                icon: 'info',
+                title: 'คำแนะนำการเข้าสู่ระบบ',
+                html: '<div style="text-align:left; line-height:1.7">1) เลือกวิธียืนยันตัวตน<br>2) หากใช้รหัสผ่าน ให้กรอก Username และ Password<br>3) หากเลือก ThaID ระบบจะแจ้งว่าส่วนนี้ยังไม่เปิดให้ใช้งาน</div>',
+                confirmButtonText: 'เข้าใจแล้ว'
+            });
+        }
+         
+        function handleThaIDLogin() {
+            Swal.fire({
+                icon: 'info',
+                title: 'ระบบยังไม่เปิดให้ใช้งาน',
+                html: 'ขออภัย ขณะนี้การยืนยันตัวตนผ่าน <b>ThaID</b> ยังไม่เปิดให้ใช้งานในส่วนนี้<br>หากมีการเปิดใช้งานจะแจ้งให้ทราบอีกครั้ง',
+                confirmButtonText: 'รับทราบ'
+            });
+        }
+
+         
+         
+        const SESSION_KEY = 'smisAdminSession';
+        const SESSION_PAGE_KEY = 'smisAdminCurrentPage';
+        const SESSION_TITLE_KEY = 'smisAdminCurrentTitle';
+        const SESSION_TIMEOUT_MS = 15 * 60 * 1000;
+        const ACTIVITY_UPDATE_INTERVAL_MS = 30 * 1000;
+        const SERVER_SESSION_TOUCH_INTERVAL_MS = 5 * 60 * 1000;
+        const PORTAL_MENU_CODES = Object.freeze(['A1', 'A2', 'A3', 'A4', 'A5', 'B1', 'B2']);
+
+        let lastActivityWrite = 0;
+        let lastServerTouch = 0;
+        let sessionCheckTimer = null;
+
+
+        // ===== GitHub Pages -> Google Apps Script Web App API =====
+        const APP_CONFIG = window.APP_CONFIG || {};
+        const API_URL = String(APP_CONFIG.API_URL || '').trim();
+        const API_TIMEOUT_MS = Number(APP_CONFIG.REQUEST_TIMEOUT_MS || 30000);
+        const API_DEBUG = APP_CONFIG.DEBUG_API === true;
+
+        function validateApiConfig() {
+            if (!API_URL || /PASTE_|YOUR_DEPLOYMENT|AKfycb\.\.\./i.test(API_URL)) {
+                throw new Error('ยังไม่ได้ตั้งค่า API_URL ใน assets/js/config.js');
+            }
+            if (!/^https:\/\/script\.google\.com\/macros\/s\/[^/]+\/exec(?:\?.*)?$/i.test(API_URL)) {
+                throw new Error('API_URL ต้องเป็น URL Google Apps Script Web App ที่ลงท้ายด้วย /exec');
+            }
+        }
+
+        async function apiRequest(action, payload = {}) {
+            validateApiConfig();
+
+            const controller = new AbortController();
+            const timer = setTimeout(() => controller.abort(), API_TIMEOUT_MS);
+
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    redirect: 'follow',
+                    headers: {
+                        // ใช้ simple request เพื่อลดปัญหา CORS/preflight ของ Apps Script Web App
+                        'Content-Type': 'text/plain;charset=utf-8'
+                    },
+                    body: JSON.stringify({ action, payload }),
+                    signal: controller.signal,
+                    cache: 'no-store'
+                });
+
+                const raw = await response.text();
+                if (!response.ok) {
+                    throw new Error('HTTP ' + response.status + (raw ? ': ' + raw.slice(0, 160) : ''));
+                }
+
+                let data;
+                try {
+                    data = JSON.parse(raw);
+                } catch (_) {
+                    throw new Error('Backend ตอบกลับมาไม่ใช่ JSON กรุณาตรวจสอบ Deployment /exec และสิทธิ์การเข้าถึง');
+                }
+
+                if (API_DEBUG) console.debug('[S-MIS API]', action, data);
+                return data;
+            } catch (error) {
+                if (error && error.name === 'AbortError') {
+                    throw new Error('หมดเวลาการเชื่อมต่อ Backend กรุณาลองใหม่อีกครั้ง');
+                }
+                throw error;
+            } finally {
+                clearTimeout(timer);
+            }
+        }
+
+        function normalizeMenuPermissions(rawPermissions) {
+            const source = rawPermissions && typeof rawPermissions === 'object'
+                ? rawPermissions
+                : {};
+
+            return PORTAL_MENU_CODES.reduce((result, code) => {
+                result[code] = source[code] === true;
+                return result;
+            }, {});
+        }
+
+        function hasMenuAccess(session, menuCode) {
+            if (!session) return false;
+            const code = String(menuCode || '').trim().toUpperCase();
+            if (!PORTAL_MENU_CODES.includes(code)) return false;
+            if (String(session.role || '').trim().toLowerCase() === 'admin') return true;
+            return !!(session.permissions && session.permissions[code] === true);
+        }
+
+        function applyMenuPermissions(session) {
+            let visibleCount = 0;
+
+            document.querySelectorAll('.menu-permission-item[data-menu-code]').forEach(item => {
+                const code = String(item.dataset.menuCode || '').trim().toUpperCase();
+                const allowed = hasMenuAccess(session, code);
+                item.style.display = allowed ? '' : 'none';
+                if (allowed) visibleCount++;
+            });
+
+            document.querySelectorAll('.portal-menu-group[data-menu-group]').forEach(group => {
+                const visibleItems = Array.from(
+                    group.querySelectorAll('.menu-permission-item[data-menu-code]')
+                ).some(item => item.style.display !== 'none');
+
+                group.style.display = visibleItems ? '' : 'none';
+            });
+
+            const emptyState = document.getElementById('noAuthorizedMenus');
+            if (emptyState) {
+                emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
+            }
+        }
+
+        function getStoredSession() {
+            try {
+                const raw = sessionStorage.getItem(SESSION_KEY);
+                if (!raw) return null;
+                const session = JSON.parse(raw);
+                 
+                 
+                if (
+                    !session ||
+                    !session.loggedIn ||
+                    !session.lastActivity ||
+                    !session.portalToken ||
+                    !session.permissions ||
+                    typeof session.permissions !== 'object'
+                ) return null;
+
+                session.permissions = normalizeMenuPermissions(session.permissions);
+                return session;
+            } catch (e) {
+                return null;
+            }
+        }
+
+        function saveLoginSession(response) {
+            const now = Date.now();
+            const session = {
+                loggedIn: true,
+                name: String(response.name || '').trim(),
+                username: String(response.username || '').trim(),
+                role: String(response.role || '').trim().toLowerCase(),
+                permissions: normalizeMenuPermissions(response.permissions),
+                portalToken: String(response.portalToken || '').trim(),
+                lastActivity: now
+            };
+
+            sessionStorage.setItem(SESSION_KEY, JSON.stringify(session));
+            sessionStorage.setItem(SESSION_PAGE_KEY, 'page-home');
+            sessionStorage.setItem(
+                SESSION_TITLE_KEY,
+                '<i class="fas fa-th-large text-primary me-2"></i> เมนูหลัก (Main Menu)'
+            );
+            lastActivityWrite = now;
+            lastServerTouch = now;
+        }
+
+        function clearLoginSession() {
+            sessionStorage.removeItem(SESSION_KEY);
+            sessionStorage.removeItem(SESSION_PAGE_KEY);
+            sessionStorage.removeItem(SESSION_TITLE_KEY);
+            lastActivityWrite = 0;
+            lastServerTouch = 0;
+        }
+
+        function touchPortalServerSessionIfNeeded(session) {
+            if (!session || !session.portalToken) return;
+
+            const now = Date.now();
+            if (now - lastServerTouch < SERVER_SESSION_TOUCH_INTERVAL_MS) return;
+            lastServerTouch = now;
+
+            apiRequest('touchPortalSession', {
+                portalToken: session.portalToken
+            }).then(function(response) {
+                if (!response || !response.success) {
+                    if (API_DEBUG) console.warn('[S-MIS] touch session rejected', response);
+                }
+            }).catch(function(error) {
+                if (API_DEBUG) console.warn('[S-MIS] touch session failed', error);
+            });
+        }
+
+        function updateSessionActivity(force = false) {
+            const session = getStoredSession();
+            if (!session) return;
+
+            const now = Date.now();
+            if (!force && now - lastActivityWrite < ACTIVITY_UPDATE_INTERVAL_MS) return;
+
+            session.lastActivity = now;
+            sessionStorage.setItem(SESSION_KEY, JSON.stringify(session));
+            lastActivityWrite = now;
+            touchPortalServerSessionIfNeeded(session);
+        }
+
+        function isSessionExpired(session) {
+            return !session || (Date.now() - Number(session.lastActivity || 0)) >= SESSION_TIMEOUT_MS;
+        }
+
+        function showPortalFromSession(session) {
+            document.getElementById('displayUserName').innerText = session.name
+                ? ' ออกจากระบบ (' + session.name + ')'
+                : ' ออกจากระบบ';
+
+            document.getElementById('login-section').style.display = 'none';
+            document.getElementById('portal-section').style.display = 'flex';
+
+            document.querySelectorAll('.page-section').forEach(el => el.classList.remove('active'));
+            document.getElementById('page-home').classList.add('active');
+            document.getElementById('pageTitle').innerHTML =
+                '<i class="fas fa-th-large text-primary me-2"></i> เมนูหลัก (Main Menu)';
+            document.getElementById('btnBack').style.display = 'none';
+
+            historyStack = ['page-home'];
+            titleStack = ['<i class="fas fa-th-large text-primary me-2"></i> เมนูหลัก (Main Menu)'];
+            sessionStorage.setItem(SESSION_PAGE_KEY, 'page-home');
+            sessionStorage.setItem(SESSION_TITLE_KEY, titleStack[0]);
+
+            applyMenuPermissions(session);
+        }
+
+        function resetPortalToLogin() {
+            document.getElementById('portal-section').style.display = 'none';
+            document.getElementById('login-section').style.display = 'flex';
+            document.getElementById('password').value = '';
+
+            historyStack = ['page-home'];
+            titleStack = ['<i class="fas fa-th-large text-primary me-2"></i> เมนูหลัก (Main Menu)'];
+            document.querySelectorAll('.page-section').forEach(el => el.classList.remove('active'));
+            document.getElementById('page-home').classList.add('active');
+            document.getElementById('pageTitle').innerHTML = titleStack[0];
+            document.getElementById('btnBack').style.display = 'none';
+        }
+
+        function autoLogoutDueToInactivity() {
+            clearLoginSession();
+            resetPortalToLogin();
+
+            Swal.fire({
+                icon: 'info',
+                title: 'สิ้นสุดระยะเวลาการใช้งานระบบ',
+                html: 'ระบบได้ออกจากระบบโดยอัตโนมัติ เนื่องจากไม่มีการใช้งานต่อเนื่องเป็นเวลาเกิน <b>15 นาที</b><br>กรุณายืนยันตัวตนเพื่อเข้าใช้งานระบบอีกครั้ง',
+                confirmButtonText: 'รับทราบ',
+                allowOutsideClick: false
+            });
+        }
+
+        function checkSessionTimeout() {
+            const session = getStoredSession();
+            if (!session) return;
+            if (isSessionExpired(session)) {
+                autoLogoutDueToInactivity();
+            }
+        }
+
+        function startSessionMonitoring() {
+            if (sessionCheckTimer) clearInterval(sessionCheckTimer);
+            sessionCheckTimer = setInterval(checkSessionTimeout, 30 * 1000);
+
+             
+            ['mousedown', 'keydown', 'scroll', 'touchstart', 'click'].forEach(eventName => {
+                document.addEventListener(eventName, () => updateSessionActivity(false), { passive: true });
+            });
+        }
+
+        function restoreSessionOnLoad() {
+            const session = getStoredSession();
+
+            if (session && !isSessionExpired(session)) {
+                 
+                lastActivityWrite = Number(session.lastActivity || 0);
+                lastServerTouch = 0;
+                touchPortalServerSessionIfNeeded(session);
+                showPortalFromSession(session);
+            } else {
+                if (session) clearLoginSession();
+                resetPortalToLogin();
+            }
+
+            document.body.classList.remove('session-checking');
+            startSessionMonitoring();
+        }
+
+         
+        async function handleLogin() {
+            const user = document.getElementById('username').value.trim();
+            const pass = document.getElementById('password').value;
+            const loginBtn = document.getElementById('loginBtn');
+
+            if (!user || !pass) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'กรุณากรอกข้อมูลให้ครบถ้วน',
+                    text: 'กรุณาระบุรหัสผู้ใช้งานและรหัสผ่าน'
+                });
+                return;
+            }
+
+            if (loginBtn) loginBtn.disabled = true;
+
+            Swal.fire({
+                title: 'กำลังตรวจสอบ',
+                html: 'กรุณารอสักครู่ ระบบกำลังยืนยันบัญชีผู้ใช้งาน',
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                didOpen: () => { Swal.showLoading(); }
+            });
+
+            try {
+                const response = await apiRequest('checkLogin', {
+                    username: user,
+                    password: pass
+                });
+
+                if (response && response.success) {
+                    saveLoginSession(response);
+                    document.getElementById('password').value = '';
+
+                    await Swal.fire({
+                        icon: 'success',
+                        title: 'เข้าสู่ระบบสำเร็จ',
+                        text: 'ยินดีต้อนรับ ' + (response.name || ''),
+                        showConfirmButton: false,
+                        timer: 1200
+                    });
+
+                    showPortalFromSession(getStoredSession());
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'ไม่สามารถเข้าสู่ระบบได้',
+                        text: response && response.message
+                            ? response.message
+                            : 'ไม่สามารถยืนยันบัญชีผู้ใช้งานได้'
+                    });
+                }
+            } catch (error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'เกิดข้อผิดพลาด',
+                    text: error && error.message
+                        ? error.message
+                        : 'ไม่สามารถติดต่อฐานข้อมูลได้ กรุณาลองใหม่'
+                });
+            } finally {
+                if (loginBtn) loginBtn.disabled = false;
+            }
+        }
+
+        function handleLogout() {
+            Swal.fire({
+                title: 'ยืนยันการออกจากระบบ?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#EF4444',
+                cancelButtonColor: '#6B7280',
+                confirmButtonText: 'ออกจากระบบ',
+                cancelButtonText: 'ยกเลิก'
+            }).then(async (result) => {
+                if (!result.isConfirmed) return;
+
+                const session = getStoredSession();
+                if (session && session.portalToken) {
+                    try {
+                        await apiRequest('revokePortalSession', {
+                            portalToken: session.portalToken
+                        });
+                    } catch (error) {
+                        if (API_DEBUG) console.warn('[S-MIS] revoke session failed', error);
+                    }
+                }
+
+                clearLoginSession();
+                resetPortalToLogin();
+            });
+        }
+
+        async function openInternalSystemSso(event, audience, menuCode) {
+            if (event) event.preventDefault();
+
+            const session = getStoredSession();
+            if (!session || isSessionExpired(session) || !session.portalToken) {
+                clearLoginSession();
+                resetPortalToLogin();
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'กรุณายืนยันตัวตนใหม่',
+                    text: 'เซสชัน S-MIS PORTAL หมดอายุ กรุณาเข้าสู่ระบบอีกครั้ง',
+                    confirmButtonText: 'ตกลง'
+                });
+                return false;
+            }
+
+            if (!hasMenuAccess(session, menuCode)) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'ไม่มีสิทธิ์เข้าใช้งาน',
+                    text: 'บัญชีนี้ไม่ได้รับสิทธิ์สำหรับเมนู ' + String(menuCode || ''),
+                    confirmButtonText: 'ตกลง'
+                });
+                return false;
+            }
+
+            // เปิดหน้าต่างทันทีจาก click event ป้องกัน popup blocker
+            const popup = window.open('about:blank', '_blank');
+
+            Swal.fire({
+                title: 'กำลังเปิดระบบ',
+                html: 'กำลังตรวจสอบสิทธิ์และสร้าง Single Sign-On',
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                didOpen: () => Swal.showLoading()
+            });
+
+            try {
+                const response = await apiRequest('createSsoTicket', {
+                    portalToken: session.portalToken,
+                    audience: audience
+                });
+
+                Swal.close();
+
+                if (!response || !response.success || !response.url) {
+                    if (popup && !popup.closed) popup.close();
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'ไม่สามารถเข้าสู่ระบบได้',
+                        text: response && response.message
+                            ? response.message
+                            : 'ไม่สามารถสร้าง Single Sign-On ได้'
+                    });
+                    return false;
+                }
+
+                if (popup && !popup.closed) {
+                    try {
+                        popup.opener = null;
+                        popup.location.replace(response.url);
+                    } catch (_) {
+                        window.location.href = response.url;
+                    }
+                } else {
+                    window.location.href = response.url;
+                }
+            } catch (error) {
+                if (popup && !popup.closed) popup.close();
+                Swal.close();
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Single Sign-On ไม่สำเร็จ',
+                    text: error && error.message
+                        ? error.message
+                        : 'ไม่สามารถเชื่อมต่อบริการ SSO ได้ กรุณาลองใหม่'
+                });
+            }
+
+            return false;
+        }
+
+        async function openPermittedExternal(event, menuCode, url) {
+            if (event) event.preventDefault();
+
+            const session = getStoredSession();
+            if (!session || isSessionExpired(session) || !session.portalToken) {
+                clearLoginSession();
+                resetPortalToLogin();
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'กรุณายืนยันตัวตนใหม่',
+                    text: 'เซสชัน S-MIS PORTAL หมดอายุ กรุณาเข้าสู่ระบบอีกครั้ง',
+                    confirmButtonText: 'ตกลง'
+                });
+                return false;
+            }
+
+            if (!hasMenuAccess(session, menuCode)) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'ไม่มีสิทธิ์เข้าใช้งาน',
+                    text: 'บัญชีนี้ไม่ได้รับสิทธิ์สำหรับเมนู ' + String(menuCode || ''),
+                    confirmButtonText: 'ตกลง'
+                });
+                return false;
+            }
+
+            const targetUrl = String(url || '').trim();
+            const popup = window.open('about:blank', '_blank');
+
+            try {
+                const response = await apiRequest('authorizeMenuOpen', {
+                    portalToken: session.portalToken,
+                    menuCode: menuCode
+                });
+
+                if (!response || !response.success) {
+                    if (popup && !popup.closed) popup.close();
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'ไม่มีสิทธิ์เข้าใช้งาน',
+                        text: response && response.message
+                            ? response.message
+                            : 'ไม่สามารถตรวจสอบสิทธิ์เมนูได้'
+                    });
+                    return false;
+                }
+
+                if (popup && !popup.closed) {
+                    try {
+                        popup.opener = null;
+                        popup.location.replace(targetUrl);
+                    } catch (_) {
+                        window.location.href = targetUrl;
+                    }
+                } else {
+                    window.location.href = targetUrl;
+                }
+            } catch (error) {
+                if (popup && !popup.closed) popup.close();
+                Swal.fire({
+                    icon: 'error',
+                    title: 'ตรวจสอบสิทธิ์ไม่สำเร็จ',
+                    text: error && error.message
+                        ? error.message
+                        : 'ไม่สามารถตรวจสอบสิทธิ์เมนูได้ กรุณาลองใหม่'
+                });
+            }
+
+            return false;
+        }
+
+        function openJobStudentSso(event) {
+            return openInternalSystemSso(event, 'ubu-jobstudent', 'A1');
+        }
+
+        function openENoteSyncSso(event) {
+            return openInternalSystemSso(event, 'ubu-enotesync', 'A2');
+        }
+
+        function openStudentJobsAdminSso(event) {
+            return openInternalSystemSso(event, 'ubu-studentjobs-admin', 'A5');
+        }
+
+         
+        let historyStack = ['page-home'];
+        let titleStack = ['<i class="fas fa-th-large text-primary me-2"></i> เมนูหลัก (Main Menu)'];
+
+        function goToPage(pageId, title) {
+            document.querySelectorAll('.page-section').forEach(el => el.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            
+            const iconMap = {
+                'page-job': 'fa-briefcase',
+                'page-scholarship': 'fa-graduation-cap',
+                'page-ext': 'fa-globe-asia',
+                'page-int': 'fa-university',
+            };
+            const iconClass = iconMap[pageId] || 'fa-folder-open';
+            const fullTitle = `<i class="fas ${iconClass} text-primary me-2"></i> ${title}`;
+            
+            document.getElementById('pageTitle').innerHTML = fullTitle;
+            document.getElementById('btnBack').style.display = 'flex';
+            
+            if(historyStack[historyStack.length - 1] !== pageId) {
+                historyStack.push(pageId);
+                titleStack.push(fullTitle);
+            }
+
+            sessionStorage.setItem(SESSION_PAGE_KEY, pageId);
+            sessionStorage.setItem(SESSION_TITLE_KEY, fullTitle);
+            updateSessionActivity(true);
+            window.scrollTo(0, 0);
+        }
+
+        function goBack() {
+            if (historyStack.length > 1) {
+                historyStack.pop(); 
+                titleStack.pop();
+                
+                const prevPage = historyStack[historyStack.length - 1];
+                const prevTitle = titleStack[titleStack.length - 1];
+                
+                document.querySelectorAll('.page-section').forEach(el => el.classList.remove('active'));
+                document.getElementById(prevPage).classList.add('active');
+                document.getElementById('pageTitle').innerHTML = prevTitle;
+                
+                if (historyStack.length === 1) {
+                    document.getElementById('btnBack').style.display = 'none';
+                }
+
+                sessionStorage.setItem(SESSION_PAGE_KEY, prevPage);
+                sessionStorage.setItem(SESSION_TITLE_KEY, prevTitle);
+                updateSessionActivity(true);
+                window.scrollTo(0, 0);
+            }
+        }
+
+         
+        function updateTime() {
+            const now = new Date();
+            const options = { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' };
+            document.getElementById('datetime').innerHTML = `<i class="far fa-clock"></i> ` + now.toLocaleDateString('th-TH', options) + " น.";
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+
+         
+        document.addEventListener('DOMContentLoaded', function() {
+            restoreSessionOnLoad();
+            try {
+                validateApiConfig();
+            } catch (error) {
+                console.error('[S-MIS] API configuration error:', error.message);
+            }
+        });
+    
+</script>
+</body>
+</html> 

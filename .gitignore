@@ -1,0 +1,3 @@
+# ห้ามนำไฟล์ฝั่ง Apps Script/Secret มาไว้ใน repository นี้
+Code.gs
+*.gs
