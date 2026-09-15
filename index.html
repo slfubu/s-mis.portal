@@ -899,6 +899,143 @@
         .input-modern, .btn-modern, .btn-thaid, .auth-method-btn { font-size: 1rem !important; }
         .contact-footer, .contact-footer p, .contact-footer h6, .contact-footer a { font-family: "Sarabun", Tahoma, Arial, sans-serif !important; }
 
+
+
+        /* ===== Equal card layout refinement ===== */
+        .portal-app-area {
+            max-width: 1460px;
+            margin: 0 auto;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        .portal-menu-group {
+            margin-bottom: 20px;
+        }
+
+        .menu-group-heading {
+            margin-bottom: 10px;
+        }
+
+        #portal-section .menu-group-grid {
+            display: grid !important;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 280px)) !important;
+            gap: 14px !important;
+            justify-content: start;
+            align-items: stretch;
+        }
+
+        #portal-section .menu-group-grid > [class*="col-"] {
+            width: 280px !important;
+            max-width: 280px !important;
+        }
+
+        #portal-section .slim-card {
+            min-height: 148px !important;
+            height: 148px !important;
+            padding: 16px 16px !important;
+            border-radius: 10px !important;
+            background: #eef2f3 !important;
+            border: 1px solid #dde5e9 !important;
+            box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05) !important;
+            display: flex !important;
+            align-items: flex-start !important;
+        }
+
+        #portal-section .icon-box {
+            width: 54px !important;
+            height: 54px !important;
+            min-width: 54px !important;
+            flex: 0 0 54px !important;
+            margin-right: 12px !important;
+            border-radius: 8px !important;
+            font-size: 1.45rem !important;
+            margin-top: 2px;
+        }
+
+        #portal-section .card-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            min-width: 0;
+            height: 100%;
+        }
+
+        #portal-section .card-title {
+            margin-bottom: 8px !important;
+            font-size: 0.98rem !important;
+            line-height: 1.38 !important;
+            font-weight: 600 !important;
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        #portal-section .card-desc {
+            font-size: 0.82rem !important;
+            line-height: 1.45 !important;
+            color: #5e6a73 !important;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        @media (max-width: 1399.98px) {
+            .portal-app-area {
+                max-width: 1180px;
+            }
+
+            #portal-section .menu-group-grid {
+                grid-template-columns: repeat(auto-fill, minmax(260px, 260px)) !important;
+            }
+
+            #portal-section .menu-group-grid > [class*="col-"] {
+                width: 260px !important;
+                max-width: 260px !important;
+            }
+        }
+
+        @media (max-width: 991.98px) {
+            .portal-app-area {
+                max-width: 100%;
+                padding-left: 8px;
+                padding-right: 8px;
+            }
+
+            #portal-section .menu-group-grid {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)) !important;
+                justify-content: stretch;
+            }
+
+            #portal-section .menu-group-grid > [class*="col-"] {
+                width: auto !important;
+                max-width: none !important;
+            }
+        }
+
+        @media (max-width: 575.98px) {
+            #portal-section .menu-group-grid {
+                grid-template-columns: 1fr !important;
+                gap: 10px !important;
+            }
+
+            #portal-section .slim-card {
+                min-height: 132px !important;
+                height: auto !important;
+                padding: 14px !important;
+            }
+
+            #portal-section .card-title {
+                font-size: 0.95rem !important;
+            }
+
+            #portal-section .card-desc {
+                font-size: 0.80rem !important;
+            }
+        }
+
 </style>
 </head>
 <body class="session-checking">
