@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
     <title>S-MIS Portal</title>
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -22,9 +25,30 @@
 
         html, body { height: 100%; margin: 0; }
 
-        /* ===== ฟอนต์หลักของระบบ: TH Sarabun (ไทยสารบรรณ) ===== */
+        /* ===== Typography: Sarabun / Formal University UI ===== */
+        html { font-size: 17px; }
+        body {
+            font-family: "Sarabun", Tahoma, Arial, sans-serif !important;
+            font-weight: 400;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+        }
+        button, input, select, textarea, .swal2-popup {
+            font-family: "Sarabun", Tahoma, Arial, sans-serif !important;
+        }
+        .login-title, .login-info-title, .portal-header h5, .menu-group-code,
+        .menu-group-title, #pageTitle, .card-title, .fw-bold, strong {
+            font-weight: 600 !important;
+        }
+        #portal-section .card-title { font-size: 1rem; }
+        #portal-section .card-desc { font-size: .80rem; line-height: 1.5; }
+        .menu-group-code, .menu-group-title { font-size: .88rem; }
+        .input-modern, .btn-modern, .btn-thaid, .auth-method-btn { font-size: 1rem; }
+
+        /* ===== ฟอนต์หลักของระบบ: Sarabun ===== */
         html, body, button, input, select, textarea, .swal2-popup {
-            font-family: "TH Sarabun", "TH SarabunPSK", "Sarabun", sans-serif !important;
+            font-family: "Sarabun", Tahoma, Arial, sans-serif !important;
         }
 
          
@@ -32,7 +56,7 @@
         body.session-checking #portal-section { visibility: hidden; }
 
         body {
-            font-family: "TH Sarabun", "TH SarabunPSK", "Sarabun", sans-serif;
+            font-family: "Sarabun", Tahoma, Arial, sans-serif;
             background-color: var(--bg-light);
             color: #333;
             overflow-x: hidden;
@@ -867,6 +891,14 @@
         }
 
     
+        /* ===== Final Sarabun readability overrides ===== */
+        #portal-section .card-title { font-size: 1rem !important; font-weight: 600 !important; line-height: 1.45 !important; }
+        #portal-section .card-desc { font-size: .82rem !important; line-height: 1.55 !important; font-weight: 400; }
+        .menu-group-code, .menu-group-title { font-size: .90rem !important; line-height: 1.5 !important; }
+        .login-info-text, .login-legal, .login-subtitle { line-height: 1.75; }
+        .input-modern, .btn-modern, .btn-thaid, .auth-method-btn { font-size: 1rem !important; }
+        .contact-footer, .contact-footer p, .contact-footer h6, .contact-footer a { font-family: "Sarabun", Tahoma, Arial, sans-serif !important; }
+
 </style>
 </head>
 <body class="session-checking">
