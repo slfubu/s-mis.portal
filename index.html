@@ -22,12 +22,17 @@
 
         html, body { height: 100%; margin: 0; }
 
+        /* ===== ฟอนต์หลักของระบบ: TH Sarabun (ไทยสารบรรณ) ===== */
+        html, body, button, input, select, textarea, .swal2-popup {
+            font-family: "TH Sarabun", "TH SarabunPSK", "Sarabun", sans-serif !important;
+        }
+
          
         body.session-checking #login-section,
         body.session-checking #portal-section { visibility: hidden; }
 
         body {
-            font-family: "Helvetica Neue Thin", "Helvetica Neue", Helvetica, Arial, san-serif;
+            font-family: "TH Sarabun", "TH SarabunPSK", "Sarabun", sans-serif;
             background-color: var(--bg-light);
             color: #333;
             overflow-x: hidden;
