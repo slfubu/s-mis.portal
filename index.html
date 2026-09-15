@@ -1651,11 +1651,11 @@
             document.querySelectorAll('.page-section').forEach(el => el.classList.remove('active'));
             document.getElementById('page-home').classList.add('active');
             document.getElementById('pageTitle').innerHTML =
-                '<i class="fas fa-th-large text-primary me-2"></i> เมนูหลัก (Main Menu)';
+                '<i class="fas fa-th-large text-primary me-2"></i> Applications';
             document.getElementById('btnBack').style.display = 'none';
 
             historyStack = ['page-home'];
-            titleStack = ['<i class="fas fa-th-large text-primary me-2"></i> เมนูหลัก (Main Menu)'];
+            titleStack = ['<i class="fas fa-th-large text-primary me-2"></i> Applications'];
             sessionStorage.setItem(SESSION_PAGE_KEY, 'page-home');
             sessionStorage.setItem(SESSION_TITLE_KEY, titleStack[0]);
 
@@ -1985,7 +1985,7 @@
 
          
         let historyStack = ['page-home'];
-        let titleStack = ['<i class="fas fa-th-large text-primary me-2"></i> เมนูหลัก (Main Menu)'];
+        let titleStack = ['<i class="fas fa-th-large text-primary me-2"></i> Applications'];
 
         function goToPage(pageId, title) {
             document.querySelectorAll('.page-section').forEach(el => el.classList.remove('active'));
