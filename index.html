@@ -1170,8 +1170,8 @@
                 <div class="d-flex align-items-center">
                     <img src="https://lh3.googleusercontent.com/d/1WvN_Rl-zM1biWLeOAy2gNeUKioySA3fW" alt="Logo" height="70" class="me-3" style="filter: drop-shadow(0 2px 2px rgba(95,71,0,0.18));">
                     <div style="line-height: 1.1;"> 
-                        <h5 class="mb-0 fw-bold" style="letter-spacing: 0.5px; font-size: 1.2rem;">ระบบบูรณาการสารสนเทศแบบรวมศูนย์ งานสวัสดิการนักศึกษา กองพัฒนานักศึกษา</h5>
-                        <p class="mb-0" style="font-size: 0.9rem; opacity: 0.9;">สำนักงานมหาวิทยาลัยอุบลราชธานี มหาวิทยาลัยอุบลราชธานี</p>
+                        <h5 class="mb-0 fw-bold" style="letter-spacing: 0.5px; font-size: 1.2rem;">ระบบบูรณาการสารสนเทศแบบรวมศูนย์ : S-MIS PORTAL</h5>
+                        <p class="mb-0" style="font-size: 0.9rem; opacity: 0.9;">งานสวัสดิการนักศึกษา กองพัฒนานักศึกษา สำนักงานมหาวิทยาลัยอุบลราชธานี มหาวิทยาลัยอุบลราชธานี</p>
                     </div>
                 </div>
                 
@@ -1591,7 +1591,7 @@
             sessionStorage.setItem(SESSION_PAGE_KEY, 'page-home');
             sessionStorage.setItem(
                 SESSION_TITLE_KEY,
-                '<i class="fas fa-th-large text-primary me-2"></i> เมนูหลัก (Main Menu)'
+                '<i class="fas fa-th-large text-primary me-2"></i> Applications'
             );
             lastActivityWrite = now;
             lastServerTouch = now;
@@ -1668,7 +1668,7 @@
             document.getElementById('password').value = '';
 
             historyStack = ['page-home'];
-            titleStack = ['<i class="fas fa-th-large text-primary me-2"></i> เมนูหลัก (Main Menu)'];
+            titleStack = ['<i class="fas fa-th-large text-primary me-2"></i> Applications'];
             document.querySelectorAll('.page-section').forEach(el => el.classList.remove('active'));
             document.getElementById('page-home').classList.add('active');
             document.getElementById('pageTitle').innerHTML = titleStack[0];
@@ -1792,7 +1792,7 @@
 
         function handleLogout() {
             Swal.fire({
-                title: 'ยืนยันการออกจากระบบ?',
+                title: 'ยืนยันการออกจากระบบ',
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#EF4444',
